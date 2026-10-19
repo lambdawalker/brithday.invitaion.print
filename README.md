@@ -116,9 +116,8 @@ The invitation addresses the head of the family and says **“¡Ven con toda tu 
 
 - Abi's second birthday, Saturday **October 24, 2026**.
 - A prominent **“¡CAMBIO DE HORARIO! Ahora 4:00 p.m.”** heading, with **“Antes 5:00 p.m. · Lo adelantamos por el clima”** below it.
-- Calle Arquitectura #419, Ciudad Juárez. The unconfirmed neighborhood name is omitted.
-- Clothing size 2 years, warm pajamas and winter clothes; Chimuelo and Teletubbies; lluvia de sobres; guests may bring their own beer.
-- Parking in front of the house and more space on Ingeniería beside the park, perpendicular to Arquitectura.
+- Calle Arquitectura #419, Col. Universidad, C.P. 32320, Ciudad Juárez, Chihuahua, México.
+- Clothing size 2 years, warm pajamas and winter clothes; Chimuelo and Teletubbies; lluvia de sobres; the friendly note “Si gustas, puedes traer tu cerveza favorita.”
 - `xitlaliabigail.com` for more information. This generic printed URL does not replace each family's private RSVP link.
 
 Viking releases are stored under `output/viking/<timestamp>/` (or `<your-output>/viking/`). This keeps `--resume` separate from classic invitations. Defaults produce **1704 × 3048 JPEGs**; use `--size-percent 100` for **2272 × 4064**. Pixel dimensions do not specify a physical paper size or bleed: ask the printer to preserve the aspect ratio and confirm the final trim size.
