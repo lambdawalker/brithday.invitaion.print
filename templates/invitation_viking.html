@@ -28,7 +28,7 @@
     <svg viewBox="0 0 1136 2144.2654377880185" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las cuatro de la tarde, antes a las cinco, por el clima.">
       <defs><path id="headline-arc" d="M 100 150 Q 568 -8 1036 150"/></defs>
       <text font-size="52" data-fit="970"><textPath href="#headline-arc" startOffset="50%">¡Llamado a todos los vikingos!</textPath></text>
-      <text id="guest" class="accent" x="568" y="244" font-size="94">{{ name }}</text>
+      <text id="guest" class="accent" x="568" y="197" font-size="104">{{ name }}</text>
       <text x="568" y="328" font-size="38" class="copy">¡Ven con toda tu familia!</text>
       <text x="568" y="405" font-size="76" class="accent">Abi cumple 2 años</text>
       <text x="568" y="470" font-size="44">Sábado 24 de octubre de 2026</text>
@@ -38,9 +38,8 @@
       <text x="568" y="715" font-size="35" class="copy">Lo adelantamos por el clima</text>
 
       <!-- The address intentionally overlaps the lower edge of the white picture area. -->
-      <text x="568" y="1505" font-size="72" class="accent" data-fit="1000">Calle Arquitectura #419</text>
-      <text x="568" y="1577" font-size="56" data-fit="1000">Fraccionamiento Universidad</text>
-      <text x="568" y="1632" font-size="40" class="copy">C.P. 32320</text>
+      <text x="568" y="1469" font-size="72" class="accent" data-fit="1000">Calle Arquitectura #419</text>
+      <text x="568" y="1541" font-size="56" data-fit="1000">Fraccionamiento Universidad</text>
       <g class="copy gifts" font-size="52">
         <text x="568" y="1715" data-fit="980">Talla 2 años</text>
         <text x="568" y="1778" data-fit="980">Pijamas y ropa de invierno</text>
@@ -50,27 +49,6 @@
       <g class="accent" font-size="56">
         <text x="568" y="1988" class="accent" data-fit="960">Si gustas, puedes traer</text>
         <text x="568" y="2054" class="accent" data-fit="960">tu cerveza favorita.</text>
-      </g>
-      <!-- Small storybook tankard: warm amber, raspberry contours and cream foam.
-           Vector artwork stays crisp at every export size; no emoji/font dependency. -->
-      <g id="beer-mug" transform="translate(535 2070) scale(.62)"
-         stroke="#542451" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
-         aria-hidden="true">
-        <path d="M66 29 H82 Q99 29 99 47 V66 Q99 84 80 84 H68"
-              fill="none" stroke="#fff0da" stroke-width="13"/>
-        <path d="M66 29 H82 Q99 29 99 47 V66 Q99 84 80 84 H68"
-              fill="none" stroke="#a82d60" stroke-width="7"/>
-        <path d="M7 24 L12 94 Q40 107 70 94 L75 24 Z"
-              fill="#dba15f" stroke="#fff0da" stroke-width="10"/>
-        <path d="M7 24 L12 94 Q40 107 70 94 L75 24 Z"
-              fill="#dba15f" stroke="#a82d60" stroke-width="4"/>
-        <path d="M25 43 L28 84 M43 44 V88 M60 43 L57 84"
-              fill="none" stroke="#fff0da" stroke-width="5" opacity=".8"/>
-        <path d="M7 30 C-5 25 0 10 12 10 C14 -3 32 -3 37 7
-                 C47 -4 65 0 65 10 C82 5 88 25 75 31
-                 C67 36 59 29 52 32 C41 39 32 29 24 33
-                 C16 38 8 36 7 30 Z" fill="#fff0da" stroke="#a82d60" stroke-width="3"/>
-        <path d="M13 97 Q40 105 69 97" fill="none" stroke="#542451" stroke-width="3"/>
       </g>
     </svg>
     <canvas id="ornaments" aria-hidden="true"></canvas>
@@ -84,7 +62,7 @@
       const name = guest.textContent.trim();
       const words = name.split(/\s+/);
       // Clear of the side ornaments and the copy below; includes glyph overhangs.
-      const box = { x: 200, y: 167, width: 736, height: 120 };
+      const box = { x: 178, y: 114, width: 780, height: 132 };
       function setLines(lines, size) {
         guest.replaceChildren();
         guest.removeAttribute("transform");
@@ -98,9 +76,9 @@
         }
       }
       function measure(lines) {
-        setLines(lines, 94);
+        setLines(lines, 104);
         const bounds = guest.getBBox();
-        return { lines, size: 94 * Math.min(1, (box.width - 8) / bounds.width, (box.height - 8) / bounds.height) };
+        return { lines, size: 104 * Math.min(1, (box.width - 8) / bounds.width, (box.height - 8) / bounds.height) };
       }
       let chosen = measure([name]);
       if (chosen.size < 64) {
@@ -171,12 +149,12 @@
         ctx.strokeStyle = cream; ctx.lineWidth = 3; ctx.stroke();
         ctx.fillStyle = ink; ctx.fill();
       }
-      flourish(180, 226, .85, true); flourish(956, 226, .85);
-      star(70, 192); star(1066, 192);
+      flourish(155, 179, .85, true); flourish(981, 179, .85);
+      star(70, 145); star(1066, 145);
       flourish(294, 596, .9, true); flourish(842, 596, .9);
       star(132, 576); star(1004, 576);
-      flourish(220, 1620, .65, true); flourish(916, 1620, .65);
-      star(110, 1598); star(1026, 1598);
+      flourish(220, 1584, .65, true); flourish(916, 1584, .65);
+      star(110, 1562); star(1026, 1562);
     })();
   </script>
 </body>
