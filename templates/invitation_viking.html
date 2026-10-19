@@ -8,7 +8,7 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; width: {{ width }}px; height: {{ height }}px; overflow: hidden; }
     body { display: grid; place-items: center; background: #ead8c5; }
-    .invitation { position: relative; width: min({{ width }}px, calc({{ height }}px * 1136 / 2032)); aspect-ratio: 1136 / 2032; background: #f3e4d3; }
+    .invitation { position: relative; width: min({{ width }}px, calc({{ height }}px * 1085 / 2048)); aspect-ratio: 1085 / 2048; background: #f3e4d3; }
     .background, svg, canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .background { object-fit: contain; }
     svg { overflow: visible; }
@@ -17,14 +17,15 @@
       stroke-linejoin: round; paint-order: stroke fill; }
     .copy { stroke-width: 2px; }
     .accent { fill: #a82d60; }
+    .gifts text { fill: #32162f; }
     canvas { pointer-events: none; opacity: .6; }
   </style>
 </head>
 <body>
   <main class="invitation" aria-label="Invitación de cumpleaños de Abi para {{ name }} y familia">
     {% if background %}<img class="background" src="{{ background }}" alt="">{% endif %}
-    <!-- XX.png is 1136 × 2032. Keep y=750..1540 clear for the picture. -->
-    <svg viewBox="0 0 1136 2032" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las cuatro de la tarde, antes a las cinco, por el clima.">
+    <!-- xxx.jpg is 1085 × 2048. Design coordinates retain a 1136-unit width; keep y=750..1540 clear for the picture. -->
+    <svg viewBox="0 0 1136 2144.2654377880185" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las cuatro de la tarde, antes a las cinco, por el clima.">
       <defs><path id="headline-arc" d="M 100 150 Q 568 -8 1036 150"/></defs>
       <text font-size="52" data-fit="970"><textPath href="#headline-arc" startOffset="50%">¡Llamado a todos los vikingos!</textPath></text>
       <text id="guest" class="accent" x="568" y="244" font-size="94">{{ name }}</text>
@@ -36,16 +37,18 @@
       <text x="568" y="671" font-size="35" class="copy">Antes 5:00 p.m.</text>
       <text x="568" y="715" font-size="35" class="copy">Lo adelantamos por el clima</text>
 
-      <text x="568" y="1594" font-size="45" class="accent" data-fit="900">Calle Arquitectura #419</text>
-      <text x="568" y="1640" font-size="34" class="copy" data-fit="940">Col. Universidad, C.P. 32320</text>
-      <text x="568" y="1684" font-size="34" class="copy" data-fit="940">Ciudad Juárez, Chihuahua, México</text>
-      <g class="copy" font-size="32">
-        <text x="568" y="1750" data-fit="940">Regalos: ropa talla 2 años, pijamas calientitas</text>
-        <text x="568" y="1792" data-fit="940">y ropa de invierno. Habrá lluvia de sobres.</text>
-        <text x="568" y="1850" data-fit="940">Me gustan Chimuelo (Cómo entrenar a tu dragón)</text>
-        <text x="568" y="1892" data-fit="940">y los Teletubbies.</text>
-        <text x="568" y="1950" data-fit="940">Si gustas, puedes traer tu cerveza favorita.</text>
-        <text x="568" y="2001" font-size="28" data-fit="940">Más información: xitlaliabigail.com</text>
+      <text x="568" y="1597" font-size="60" class="accent" data-fit="980">Calle Arquitectura #419</text>
+      <text x="568" y="1655" font-size="48" data-fit="980">Fraccionamiento Universidad</text>
+      <text x="568" y="1700" font-size="34" class="copy">C.P. 32320</text>
+      <g class="copy gifts" font-size="44">
+        <text x="568" y="1770" data-fit="980">Talla 2 años</text>
+        <text x="568" y="1824" data-fit="980">Pijamas y ropa de invierno</text>
+        <text x="568" y="1878" font-size="38" data-fit="980">Habrá lluvia de sobres.</text>
+      </g>
+      <g class="copy" font-size="38">
+        <text x="568" y="1940" data-fit="980">Me gustan Chimuelo (Cómo entrenar a tu dragón)</text>
+        <text x="568" y="1988" data-fit="980">y los Teletubbies.</text>
+        <text x="568" y="2060" data-fit="980">Si gustas, puedes traer tu cerveza favorita.</text>
       </g>
     </svg>
     <canvas id="ornaments" aria-hidden="true"></canvas>
@@ -107,9 +110,9 @@
       // Supersample fine ornament curves, including in the HTML preview.
       const resolution = scale * Math.max(4, window.devicePixelRatio || 1);
       canvas.width = Math.round(1136 * resolution);
-      canvas.height = Math.round(2032 * resolution);
+      canvas.height = Math.round(2144.2654377880185 * resolution);
       const ctx = canvas.getContext("2d");
-      ctx.scale(canvas.width / 1136, canvas.height / 2032);
+      ctx.scale(canvas.width / 1136, canvas.height / 2144.2654377880185);
       // Match the guest-name color; smooth paths stay crisp at any export scale.
       const ink = "#a82d60", cream = "#fff0da";
       function flourish(x, y, size = 1, mirror = false) {
@@ -150,8 +153,8 @@
       star(70, 192); star(1066, 192);
       flourish(294, 596, .9, true); flourish(842, 596, .9);
       star(132, 576); star(1004, 576);
-      flourish(266, 1620, .85, true); flourish(870, 1620, .85);
-      star(110, 1596); star(1026, 1596);
+      flourish(220, 1690, .65, true); flourish(916, 1690, .65);
+      star(110, 1668); star(1026, 1668);
     })();
   </script>
 </body>
