@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+output/
+guests.txt
+assets/background.*
+lists/*
+!lists/.gitkeep

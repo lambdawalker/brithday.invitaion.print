@@ -1,0 +1,1 @@
+uv run python generate.py  --background .\backgrounds\A.jpeg  --size-percent 75 --quality 90 --resume
