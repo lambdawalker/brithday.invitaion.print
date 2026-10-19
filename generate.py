@@ -152,13 +152,22 @@ def main() -> None:
     parser.add_argument("--background", type=Path, help="Local PNG, JPG, or WebP background.")
     parser.add_argument("--resume", action="store_true", help="Add missing guests to the latest output folder, preserving existing invitations.")
     parser.add_argument("--output", type=Path, default=ROOT / "output")
-    parser.add_argument("--template", type=Path, default=ROOT / "templates/invitation.html")
-    parser.add_argument("--width", type=int, default=896)
-    parser.add_argument("--height", type=int, default=1184)
+    design = parser.add_mutually_exclusive_group()
+    design.add_argument("--layout", choices=("classic", "viking"), default="classic", help="Built-in layout (default: classic). Viking emphasizes the new 4 p.m. time.")
+    design.add_argument("--template", type=Path, help="Custom HTML template instead of a built-in layout.")
+    parser.add_argument("--width", type=int, help="Canvas width (classic: 896; viking: 1136).")
+    parser.add_argument("--height", type=int, help="Canvas height (classic: 1184; viking: 1536).")
     parser.add_argument("--scale", type=float, default=2, help="Render pixel density before resizing (default: 2). Does not change layout.")
     parser.add_argument("--size-percent", type=float, default=75, help="Export width and height as a percentage of rendered pixels (1–100; default: 75).")
     parser.add_argument("--quality", type=int, default=90, help="JPEG quality (1–95; default: 90). Higher values make larger files.")
     args = parser.parse_args()
+    design_size = (1136, 1536) if args.layout == "viking" else (896, 1184)
+    args.width = args.width if args.width is not None else design_size[0]
+    args.height = args.height if args.height is not None else design_size[1]
+    args.template = args.template or ROOT / "templates" / ("invitation_viking.html" if args.layout == "viking" else "invitation.html")
+    # Keep resume scoped to this design; classic releases retain their old paths.
+    if args.layout == "viking":
+        args.output = args.output / "viking"
     if args.width <= 0 or args.height <= 0:
         parser.error("Width and height must be positive.")
     if not math.isfinite(args.scale) or not 1 <= args.scale <= 4:

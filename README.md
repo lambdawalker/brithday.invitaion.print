@@ -98,3 +98,29 @@ uv run python generate.py --background img.png --resume
 The command rebuilds the manifest from entries with valid images each time, then saves it atomically after every successful export. Missing or broken images are rendered again under a new number; existing files are never overwritten. Entries for completed guests removed from the input list remain in the manifest because their images remain in the folder. Older folders without a manifest are migrated once from their HTML previews and JPG/PNG files. After migration, matching uses the manifest, so keep it with the images. An invalid manifest reports an error rather than silently discarding it.
 
 If no previous batch exists, a new folder is created. Without `--resume`, every run still creates a new batch and manifest. Use the same background and rendering options when resuming; changing them does not regenerate completed guests. Legacy migration requires the default guest text element and invitation sentence in HTML previews; new batches record manifest entries directly and support custom templates.
+
+## Second render option: Viking invitation with the new time
+
+[View the rendered reference preview](docs/preview-viking.jpg). Its white center is the reserved picture area from the supplied reference.
+
+Use `--layout viking` for the **1136 × 1536** composition matching the supplied `X.jpeg` reference. It reserves the entire central band (y=500–1240) for the picture, with readable cream panels above and below. The reference's white silhouette marks the picture area; use your finished artwork as the background. The renderer does not fill or remove the silhouette.
+
+```sh
+uv run python generate.py --layout viking --background backgrounds/X.jpeg
+uv run python generate.py --layout viking --background backgrounds/X.jpeg --resume
+```
+
+On Windows, the equivalent shortcut is `start-viking.bat --background backgrounds/X.jpeg`. You can pass `--names examples/names.txt` to try the sample guest list, or use the existing `./lists` folder and its independent list subfolders.
+
+The invitation addresses the head of the family and says **“¡Ven con toda tu familia!”** for every F/M/P code. It includes:
+
+- Abi's second birthday, Saturday **October 24, 2026**.
+- A prominent **“¡CAMBIO DE HORARIO! Ahora 4:00 p.m.”** banner, with **“Antes 5:00 p.m. · Lo adelantamos por el clima”** below it.
+- Calle Arquitectura #419, Ciudad Juárez. The unconfirmed neighborhood name is omitted.
+- Clothing size 2 years, warm pajamas and winter clothes; Chimuelo and Teletubbies; lluvia de sobres; guests may bring their own beer.
+- Parking in front of the house and more space on Ingeniería beside the park, perpendicular to Arquitectura.
+- `xitlaliabigail.com` for more information. This generic printed URL does not replace each family's private RSVP link.
+
+Viking releases are stored under `output/viking/<timestamp>/` (or `<your-output>/viking/`). This keeps `--resume` separate from classic invitations. Defaults produce **1704 × 2304 JPEGs**; use `--size-percent 100` for **2272 × 3072**. Pixel dimensions do not specify a physical paper size or bleed: ask the printer to preserve the aspect ratio and confirm the final trim size.
+
+The original layout remains the default (`--layout classic`), including its original wording and 5 p.m. time. Use **viking** for the updated event information. Edit `templates/invitation_viking.html` for future wording or positioning changes. `--template` still supports custom templates, but cannot be combined with `--layout`. As before, resume does not regenerate completed guests when a background or template changes; omit `--resume` to make a fresh release.

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Invitación para {{ name }} y familia · Abi cumple 2</title>
+  <style>
+    @font-face { font-family: "Berkshire Swash"; src: url("{{ font }}") format("truetype"); }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: {{ width }}px; height: {{ height }}px; overflow: hidden; }
+    body { display: grid; place-items: center; background: #ead8c5; }
+    .invitation { position: relative; width: min({{ width }}px, calc({{ height }}px * 1136 / 1536)); aspect-ratio: 1136 / 1536; background: #f3e4d3; }
+    .background, svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .background { object-fit: contain; }
+    text { text-anchor: middle; fill: #392719; font-family: Georgia, "Times New Roman", serif; }
+    .display { font-family: "Berkshire Swash", serif; }
+    .small { font-size: 26px; }
+    .cream { fill: #fff5df; }
+    .label { font-family: Arial, sans-serif; font-weight: bold; letter-spacing: 3px; }
+  </style>
+</head>
+<body>
+  <main class="invitation" aria-label="Invitación de cumpleaños de Abi para {{ name }} y familia">
+    {% if background %}<img class="background" src="{{ background }}" alt="">{% endif %}
+    <!-- X.jpeg is 1136 × 1536. The entire y=500..1240 band stays clear:
+         its irregular white silhouette is reserved for the finished picture. -->
+    <svg viewBox="0 0 1136 1536" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las cuatro de la tarde, antes a las cinco, por el clima.">
+      <rect x="68" y="28" width="1000" height="453" rx="24" fill="#fff4de" fill-opacity=".93"/>
+      <rect x="80" y="40" width="976" height="429" rx="16" fill="none" stroke="#aa7944"/>
+      <text x="568" y="78" font-size="22" class="label">¡UNA AVENTURA VIKINGA!</text>
+      <text id="guest" x="568" y="132" font-size="48" class="display" data-fit="906">{{ name }}</text>
+      <text x="568" y="171" font-size="27">¡Ven con toda tu familia!</text>
+      <text x="568" y="238" font-size="64" class="display">Abi cumple 2 años</text>
+      <text x="568" y="283" font-size="31">Sábado 24 de octubre de 2026</text>
+      <rect x="112" y="305" width="912" height="150" rx="17" fill="#75351f"/>
+      <text x="568" y="339" font-size="25" class="cream label">¡CAMBIO DE HORARIO!</text>
+      <text x="568" y="398" font-size="58" class="cream display">Ahora 4:00 p.m.</text>
+      <text x="568" y="435" font-size="25" class="cream">Antes 5:00 p.m. · Lo adelantamos por el clima</text>
+
+      <rect x="44" y="1244" width="1048" height="276" rx="20" fill="#fff4de" fill-opacity=".96"/>
+      <text x="568" y="1280" font-size="31" class="display">Calle Arquitectura #419 · Ciudad Juárez</text>
+      <text x="568" y="1315" class="small">Regalos: ropa talla 2 años, pijamas calientitas y ropa de invierno.</text>
+      <text x="568" y="1347" class="small">Me gustan Chimuelo (Cómo entrenar a tu dragón) y los Teletubbies.</text>
+      <text x="568" y="1379" class="small">Habrá lluvia de sobres. Puedes traer tu propia cerveza.</text>
+      <path d="M 150 1395 H 986" stroke="#aa7944"/>
+      <text x="568" y="1424" class="small">Puedes estacionarte frente a la casa. Hay más espacio en</text>
+      <text x="568" y="1455" class="small">calle Ingeniería, junto al parque, perpendicular a Arquitectura.</text>
+      <text x="568" y="1497" font-size="23">Más información: xitlaliabigail.com</text>
+    </svg>
+  </main>
+  <script>
+    window.invitationReady = (async () => {
+      await document.fonts.load('48px "Berkshire Swash"');
+      await document.fonts.ready;
+      await Promise.all(Array.from(document.images, image => image.decode()));
+      for (const text of document.querySelectorAll('[data-fit]')) {
+        const available = Number(text.dataset.fit);
+        const bounds = text.getBBox();
+        const size = Number(text.getAttribute('font-size'));
+        if (bounds.width > available) text.setAttribute('font-size', size * available / bounds.width);
+      }
+    })();
+  </script>
+</body>
+</html>
