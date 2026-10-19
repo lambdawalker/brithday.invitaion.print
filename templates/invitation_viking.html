@@ -36,17 +36,16 @@
       <text x="568" y="671" font-size="35" class="copy">Antes 5:00 p.m.</text>
       <text x="568" y="715" font-size="35" class="copy">Lo adelantamos por el clima</text>
 
-      <text x="568" y="1588" font-size="45" class="accent">Calle Arquitectura #419</text>
-      <text x="568" y="1633" font-size="34" class="copy">Ciudad Juárez</text>
+      <text x="568" y="1594" font-size="45" class="accent" data-fit="900">Calle Arquitectura #419</text>
+      <text x="568" y="1640" font-size="34" class="copy" data-fit="940">Col. Universidad, C.P. 32320</text>
+      <text x="568" y="1684" font-size="34" class="copy" data-fit="940">Ciudad Juárez, Chihuahua, México</text>
       <g class="copy" font-size="32">
-        <text x="568" y="1690">Regalos: ropa talla 2 años, pijamas calientitas</text>
-        <text x="568" y="1728">y ropa de invierno. Habrá lluvia de sobres.</text>
-        <text x="568" y="1778">Me gustan Chimuelo (Cómo entrenar a tu dragón)</text>
-        <text x="568" y="1816">y los Teletubbies.</text>
-        <text x="568" y="1866">Puedes traer tu propia cerveza.</text>
-        <text x="568" y="1915">Estacionamiento frente a la casa y en calle Ingeniería,</text>
-        <text x="568" y="1953">junto al parque, perpendicular a Arquitectura.</text>
-        <text x="568" y="2001" font-size="28">Más información: xitlaliabigail.com</text>
+        <text x="568" y="1750" data-fit="940">Regalos: ropa talla 2 años, pijamas calientitas</text>
+        <text x="568" y="1792" data-fit="940">y ropa de invierno. Habrá lluvia de sobres.</text>
+        <text x="568" y="1850" data-fit="940">Me gustan Chimuelo (Cómo entrenar a tu dragón)</text>
+        <text x="568" y="1892" data-fit="940">y los Teletubbies.</text>
+        <text x="568" y="1950" data-fit="940">Si gustas, puedes traer tu cerveza favorita.</text>
+        <text x="568" y="2001" font-size="28" data-fit="940">Más información: xitlaliabigail.com</text>
       </g>
     </svg>
     <canvas id="ornaments" aria-hidden="true"></canvas>
@@ -100,7 +99,7 @@
       for (const text of document.querySelectorAll('[data-fit]')) {
         const available = Number(text.dataset.fit);
         const measured = text.getComputedTextLength();
-        const size = Number(text.getAttribute('font-size'));
+        const size = parseFloat(getComputedStyle(text).fontSize);
         if (measured > available) text.setAttribute('font-size', size * available / measured);
       }
       const canvas = document.getElementById("ornaments");
