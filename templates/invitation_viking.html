@@ -25,7 +25,7 @@
   <main class="invitation" aria-label="Invitación de cumpleaños de Abi para {{ name }} y familia">
     {% if background %}<img class="background" src="{{ background }}" alt="">{% endif %}
     <!-- xxx.jpg is 1085 × 2048. Design coordinates retain a 1136-unit width; the confirmation line may overlap the picture's lower edge at y=1400..1465. -->
-    <svg viewBox="0 0 1136 2144.2654377880185" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las cuatro de la tarde, antes a las cinco, por el clima.">
+    <svg viewBox="0 0 1136 2144.2654377880185" role="img" aria-label="Abi cumple dos años. Cambio de horario: ahora a las doce del mediodía, antes a las cinco, por el clima.">
       <defs><path id="headline-arc" d="M 100 150 Q 568 -8 1036 150"/></defs>
       <text font-size="52" data-fit="970"><textPath href="#headline-arc" startOffset="50%">¡Llamado a todos los vikingos!</textPath></text>
       <text id="guest" class="accent" x="568" y="197" font-size="104">{{ name }}</text>
@@ -33,9 +33,9 @@
       <text x="568" y="405" font-size="76" class="accent">Abi cumple 2 años</text>
       <text x="568" y="470" font-size="44">Sábado 24 de octubre de 2026</text>
       <text x="568" y="581" font-size="43" class="accent">¡Cambio de horario!</text>
-      <text x="568" y="660" font-size="76" class="accent">Ahora 4:00 p.m.</text>
-      <text x="568" y="711" font-size="35" class="copy">Antes 5:00 p.m.</text>
-      <text x="568" y="760" font-size="42" class="copy" data-fit="980">Lo adelantamos por el clima</text>
+      <text x="568" y="690" font-size="96" class="accent" data-fit="880">Ahora 12:00 p.m.</text>
+      <text x="568" y="748" font-size="35" class="copy">Antes 5:00 p.m.</text>
+      <text x="568" y="818" font-size="56" class="copy" data-fit="980">Lo adelantamos por el clima</text>
 
       <!-- Confirmation sits above the address, near the lower edge of the picture. -->
       <text x="568" y="1450" font-size="52" class="copy" data-fit="980">Favor de confirmar</text>
@@ -43,9 +43,8 @@
       <text x="568" y="1633" font-size="60" data-fit="940">Fraccionamiento Universidad</text>
       <g class="copy gifts" font-size="52">
         <text x="568" y="1732" data-fit="980">Talla 2 años</text>
-        <text x="568" y="1795" data-fit="980">Pijamas y ropa de invierno</text>
-        <text x="568" y="1857" data-fit="980">Lluvia de sobres</text>
-        <text x="568" y="1920" data-fit="980">Me gusta Toothless y Teletubbies</text>
+        <text x="568" y="1795" data-fit="980">Lluvia de sobres</text>
+        <text x="568" y="1858" data-fit="980">Me gusta Toothless y Teletubbies</text>
       </g>
       <g class="accent" font-size="56">
         <text x="568" y="2012" class="accent" data-fit="960">Si gustas, puedes traer</text>
@@ -152,8 +151,8 @@
       }
       flourish(155, 179, .85, true); flourish(981, 179, .85);
       star(70, 145); star(1066, 145);
-      flourish(294, 636, .9, true); flourish(842, 636, .9);
-      star(132, 616); star(1004, 616);
+      flourish(100, 656, .6, true); flourish(1036, 656, .6);
+      star(55, 624); star(1081, 624);
       flourish(80, 1568, .5, true); flourish(1056, 1568, .5);
       star(44, 1536); star(1092, 1536);
     })();
