@@ -3,11 +3,11 @@
    This file is embedded into exports, so existing HTML/JPEG files stay unchanged. */
 :root {
   /* General text: headline, date, weather note and confirmation. */
-  --text-color: #fff2ce;
+  --text-color: #f2ceff;
   /* Highlighted text: guest name, birthday, new time, street and beer note. */
-  --accent-color: #ffe0ed;
+  --accent-color: #e0edff;
   /* Gift suggestions: size, envelopes and favorite characters. */
-  --gift-color: #eee3ff;
+  --gift-color: #eeffe3;
   /* Outline around ALL text; use a dark color for light lettering. */
   --outline-color: #1b141b;
   /* Flourishes and stars (shown at the opacity set below). */
