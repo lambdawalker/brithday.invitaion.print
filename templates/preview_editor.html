@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Viking invitation · Color preview</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #211c24; color: #f8eff7; font: 15px system-ui, sans-serif; }
+    main { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 100vh; }
+    aside { padding: 24px; background: #302735; }
+    h1 { font-size: 23px; margin: 0 0 12px; }
+    p { line-height: 1.5; color: #d6c7d7; }
+    label { display: block; margin: 14px 0 6px; }
+    input[type=text] { width: 100%; padding: 9px; border: 1px solid #766479; border-radius: 6px; }
+    .color { display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-items: center; }
+    input[type=color] { width: 48px; height: 36px; padding: 2px; cursor: pointer; }
+    button { border: 0; border-radius: 6px; padding: 11px 14px; margin-top: 14px; cursor: pointer; }
+    #save { background: #f4d1e1; color: #30202b; font-weight: 700; }
+    #status { min-height: 50px; }
+    section { padding: 24px; overflow: auto; }
+    #stage { position: relative; margin: 0 auto; }
+    iframe { display: block; width: 1085px; height: 2048px; border: 0; transform-origin: top left; background: #f3e4d3; }
+    @media (max-width: 700px) { main { grid-template-columns: 1fr; } aside { padding: 18px; } }
+  </style>
+</head>
+<body>
+<main>
+  <aside>
+    <h1>Viking color preview</h1>
+    <p>Adjust colors live, then save them for your next export.</p>
+    <label for="guest">Guest name</label>
+    <input id="guest" type="text" value="{{ name }}" maxlength="300">
+    <button id="update">Update name</button>
+    {% for key, label in labels.items() %}
+    <label for="{{ key }}">{{ label }}</label>
+    <div class="color">
+      <input id="{{ key }}" type="color" value="{{ colors[key] }}" data-key="{{ key }}">
+      <input type="text" aria-label="{{ label }} hex value" value="{{ colors[key] }}" data-hex="{{ key }}" maxlength="7" pattern="#[0-9a-fA-F]{6}">
+    </div>
+    {% endfor %}
+    <button id="save">Save colors</button>
+    <button id="reload">Reload saved CSS</button>
+    <p id="status" role="status" aria-live="polite">Changes are unsaved until you click Save colors.</p>
+    <p>After saving, generate a fresh batch without <code>--resume</code> to refresh existing invitations.</p>
+  </aside>
+  <section aria-label="Invitation preview"><div id="stage"><iframe id="preview" title="Viking invitation preview"></iframe></div></section>
+</main>
+<script>
+  const frame = document.getElementById('preview');
+  const status = document.getElementById('status');
+  const colors = {{ colors | tojson }};
+  let ready = false;
+  function applyColors() {
+    if (!ready) return;
+    for (const [key, value] of Object.entries(colors))
+      frame.contentDocument.documentElement.style.setProperty('--' + key, value);
+    frame.contentWindow.drawOrnaments();
+  }
+  function resize() {
+    const available = document.querySelector('section').clientWidth - 48;
+    const scale = Math.min(1, Math.max(100, available) / 1085);
+    frame.style.transform = 'scale(' + scale + ')';
+    document.getElementById('stage').style.width = (1085 * scale) + 'px';
+    document.getElementById('stage').style.height = (2048 * scale) + 'px';
+  }
+  frame.addEventListener('load', async () => {
+    try {
+      if (!frame.contentWindow.invitationReady) throw Error('Preview failed to load. Check the background and CSS.');
+      await frame.contentWindow.invitationReady;
+      ready = true;
+      applyColors();
+      resize();
+    } catch (error) { status.textContent = error.message; }
+  });
+  function loadName() {
+    ready = false;
+    frame.src = '/invitation?name=' + encodeURIComponent(document.getElementById('guest').value);
+  }
+  for (const input of document.querySelectorAll('[data-key]')) {
+    input.addEventListener('input', () => {
+      colors[input.dataset.key] = input.value;
+      const hex = document.querySelector('[data-hex="' + input.dataset.key + '"]');
+      hex.value = input.value;
+      hex.setCustomValidity('');
+      applyColors();
+      status.textContent = 'Unsaved color changes.';
+    });
+  }
+  for (const input of document.querySelectorAll('[data-hex]')) {
+    input.addEventListener('input', () => {
+      const valid = /^#[0-9a-f]{6}$/i.test(input.value);
+      input.setCustomValidity(valid ? '' : 'Enter a six-digit hex color, such as #fff2ce.');
+      if (!valid) return;
+      colors[input.dataset.hex] = input.value.toLowerCase();
+      document.getElementById(input.dataset.hex).value = input.value;
+      applyColors();
+      status.textContent = 'Unsaved color changes.';
+    });
+  }
+  document.getElementById('update').onclick = loadName;
+  document.getElementById('reload').onclick = () => {
+    if (confirm('Discard unsaved colors and reload the CSS file?')) location.reload();
+  };
+  document.getElementById('save').onclick = async () => {
+    for (const input of document.querySelectorAll('[data-hex]')) if (!input.reportValidity()) return;
+    const button = document.getElementById('save');
+    button.disabled = true;
+    try {
+      const response = await fetch('/colors', {method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-Preview-Token': {{ token | tojson }}},
+        body: JSON.stringify(colors)});
+      if (!response.ok) throw Error(await response.text());
+      status.textContent = 'Saved to templates/invitation_viking.css. Future exports will use these colors.';
+    } catch (error) { status.textContent = 'Save failed: ' + error.message; }
+    finally { button.disabled = false; }
+  };
+  window.addEventListener('resize', resize);
+  loadName();
+</script>
+</body>
+</html>

@@ -124,3 +124,31 @@ Viking releases are stored under `output/viking/<timestamp>/` (or `<your-output>
 “Favor de confirmar” sits above the address near the lower edge of the white picture area. Gift suggestions use darker plum text on separate lines: “Talla 2 años”, “Lluvia de sobres”, and “Me gusta Toothless y Teletubbies”. The website footer is omitted.
 
 The original layout remains the default (`--layout classic`), including its original wording and 5 p.m. time. Use **viking** for the updated event information. Edit `templates/invitation_viking.html` for future wording or positioning changes. `--template` still supports custom templates, but cannot be combined with `--layout`. As before, resume does not regenerate completed guests when a background or template changes; omit `--resume` to make a fresh release.
+
+## Live Viking color preview
+
+On Windows, run:
+
+```bat
+.\start-viking-preview.bat
+```
+
+This opens a local browser editor using `backgrounds/B.png`. Change colors with the pickers or six-digit hex fields, try a guest name, and click **Save colors** to update `templates/invitation_viking.css`. The commented variables at the top of that file identify general text, highlighted text, gift suggestions, text outlines, ornaments, and backgrounds. You can also edit the CSS directly and click **Reload saved CSS** in the preview. Background color controls do not recolor the artwork itself.
+
+Pass another image or sample name if needed:
+
+```bat
+.\start-viking-preview.bat --background "backgrounds/other.png" --name "Tiya María"
+```
+
+On macOS/Linux, run `sh start-viking-preview.sh`. The direct command is `uv run python preview.py --background backgrounds/B.png`. Use `--port 0` to choose an available port, or `--no-open` to open the printed URL yourself. Press Ctrl+C in the terminal to stop. The editor only listens on your own computer and does not require guest lists or export any invitations.
+
+The preview uses the same Viking template as the generator; JPEG compression and export scaling are applied only during generation. Saved colors are embedded into future exports. To regenerate invitations with the new colors, omit `--resume`:
+
+```bat
+uv run python generate.py --background .\backgrounds\B.png --layout viking --quality 90
+```
+
+Your existing `start-viking.bat` export workflow can still be used. With `--resume`, completed guests keep their previous colors. Edit wording and placement in `templates/invitation_viking.html`; edit colors, outline thickness, and letter spacing in `templates/invitation_viking.css`.
+
+Preview checks: `uv run python -m unittest discover -s tests -p test_preview_colors.py`.

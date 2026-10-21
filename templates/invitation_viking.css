@@ -1,0 +1,39 @@
+/* VIKING INVITATION THEME
+   Edit the hex colors below, or run start-viking-preview.bat and Save colors.
+   This file is embedded into exports, so existing HTML/JPEG files stay unchanged. */
+:root {
+  /* General text: headline, date, weather note and confirmation. */
+  --text-color: #fff2ce;
+  /* Highlighted text: guest name, birthday, new time, street and beer note. */
+  --accent-color: #ffe0ed;
+  /* Gift suggestions: size, envelopes and favorite characters. */
+  --gift-color: #eee3ff;
+  /* Outline around ALL text; use a dark color for light lettering. */
+  --outline-color: #1b141b;
+  /* Flourishes and stars (shown at the opacity set below). */
+  --ornament-color: #a82d60;
+  /* Outline around flourishes and stars. */
+  --ornament-outline: #fff0da;
+  /* Margins outside the invitation when canvas proportions differ. */
+  --page-color: #ead8c5;
+  /* Invitation fallback color behind the background image. */
+  --paper-color: #f3e4d3;
+}
+
+/* Layout and typography. Colors above are safe to edit without moving text.
+   Main text outline: 6px. Supporting copy: 4px. Letter spacing: .015em. */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: var(--canvas-width); height: var(--canvas-height); overflow: hidden; }
+    body { display: grid; place-items: center; background: var(--page-color); }
+    .invitation { position: relative; width: min(var(--canvas-width), calc(var(--canvas-height) * 1085 / 2048)); aspect-ratio: 1085 / 2048; background: var(--paper-color); }
+    .background, svg, canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .background { object-fit: contain; }
+    svg { overflow: visible; }
+    text { text-anchor: middle; fill: var(--text-color); font-family: "Berkshire Swash", serif;
+      font-weight: 400; letter-spacing: .015em; stroke: var(--outline-color); stroke-width: 6px;
+      stroke-linejoin: round; paint-order: stroke fill; }
+    .copy { stroke-width: 4px; }
+    .accent { fill: var(--accent-color); }
+    .gifts text { fill: var(--gift-color); }
+    canvas { pointer-events: none; opacity: .6; }
+
