@@ -103,7 +103,7 @@ If no previous batch exists, a new folder is created. Without `--resume`, every 
 
 The older [reference preview](docs/preview-viking.jpg) predates the taller background and updated lower text. Use the current template to render the latest layout.
 
-Use `--layout viking` for the **1085 × 2048** composition matching the supplied `xxx.jpg` reference. It reserves the entire central band (y=750–1540) for the picture, with arched Berkshire Swash lettering, plum/raspberry text, cream outlines and the classic template’s tapered flourishes and stars above and below. The reference's white silhouette marks the picture area; use your finished artwork as the background. The renderer does not fill or remove the silhouette.
+Use `--layout viking` for the **1085 × 2048** composition matching the supplied `xxx.jpg` reference. The enlarged weather note can overlap the upper edge of the picture area, while the confirmation line sits near its lower edge, with arched Berkshire Swash lettering, plum/raspberry text, cream outlines and the classic template’s tapered flourishes and stars above and below. The reference's white silhouette marks the picture area; use your finished artwork as the background. The renderer does not fill or remove the silhouette.
 
 ```sh
 uv run python generate.py --layout viking --background backgrounds/xxx.jpg
@@ -115,12 +115,12 @@ On Windows, the equivalent shortcut is `start-viking.bat --background background
 The invitation addresses the head of the family and says **“¡Ven con toda tu familia!”** for every F/M/P code. It includes:
 
 - Abi's second birthday, Saturday **October 24, 2026**.
-- A prominent **“¡CAMBIO DE HORARIO! Ahora 4:00 p.m.”** heading, with **“Antes 5:00 p.m. · Lo adelantamos por el clima”** below it.
-- Calle Arquitectura #419, Fraccionamiento Universidad, C.P. 32320. City and state are omitted to allow larger lettering.
-- Clothing size 2 years, warm pajamas and winter clothes; Chimuelo and Teletubbies; lluvia de sobres; the friendly note “Si gustas, puedes traer tu cerveza favorita.”
+- A prominent **“¡CAMBIO DE HORARIO! Ahora 12:00 p.m.”** heading, with **“Antes 5:00 p.m. · Lo adelantamos por el clima”** below it.
+- Calle Arquitectura #419, Fraccionamiento Universidad. City and state are omitted to allow larger lettering.
+- Clothing size 2 years; Toothless and Teletubbies; lluvia de sobres; the friendly note “Si gustas, puedes traer tu cerveza favorita.”
 
 Viking releases are stored under `output/viking/<timestamp>/` (or `<your-output>/viking/`). This keeps `--resume` separate from classic invitations. Defaults produce **1628 × 3072 JPEGs**; use `--size-percent 100` for **2170 × 4096**. Pixel dimensions do not specify a physical paper size or bleed: ask the printer to preserve the aspect ratio and confirm the final trim size.
 
-The lower block starts just below the white picture area. Gift suggestions use darker plum text on separate lines: “Talla 2 años” and “Pijamas y ropa de invierno”. The website footer is omitted.
+“Favor de confirmar” sits above the address near the lower edge of the white picture area. Gift suggestions use darker plum text on separate lines: “Talla 2 años”, “Lluvia de sobres”, and “Me gusta Toothless y Teletubbies”. The website footer is omitted.
 
 The original layout remains the default (`--layout classic`), including its original wording and 5 p.m. time. Use **viking** for the updated event information. Edit `templates/invitation_viking.html` for future wording or positioning changes. `--template` still supports custom templates, but cannot be combined with `--layout`. As before, resume does not regenerate completed guests when a background or template changes; omit `--resume` to make a fresh release.
